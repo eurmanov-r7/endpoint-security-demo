@@ -6,10 +6,10 @@ import time
 import socket
 import sys
 
-# TODO: Will I need absolute path here?
-OBJ_DIR = '../objects'
-
 print("\n\n###\n Hello world! Starting Python application ... \n###\n\n")
+
+application_path = os.path.dirname(sys.executable)
+objdir = os.path.join(os.path.dirname(application_path), "objects", "eps_lib.so")
 
 class proc_start_payload(ctypes.Structure):
     _fields_ = [
@@ -33,7 +33,7 @@ def safe_shutdown():
     time.sleep(1)
     sys.exit(0)
 
-eps_lib = ctypes.CDLL(f"{os.getcwd()}/objects/eps_lib.so")
+eps_lib = ctypes.CDLL(objdir)
 
 start_handling_events_thread()
 start_metrics_thread()
